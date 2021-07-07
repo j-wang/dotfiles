@@ -42,7 +42,7 @@ values."
      python
      ocaml
      csv
-     javascript
+     (javascript :variables javascript-backend 'lsp)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -57,7 +57,9 @@ values."
      ;; react
      ranger
      (org :variables org-want-todo-bindings t)
-     (go :variables go-format-before-save t)
+     (go :variables
+         go-format-before-save t
+         go-backend 'lsp)
      deft
      dash
      (typescript :variables
@@ -338,7 +340,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq exec-path (append exec-path '("/usr/local/bin")))
 
   ;; load theme before everything else
-  (add-to-load-path-if-exists "~/.spacemacs.d/")
+  ;; (add-to-load-path-if-exists "~/.spacemacs.d/")
   (setq-default dotspacemacs-themes '(spacemacs-dark))
 
   ;; set background color to nothing for terminal-based
@@ -732,6 +734,7 @@ you should place your code here."
                            "--trailing-comma" "es5"
                            "--bracket-spacing" "true"
                            "--single-quote" "true"
+                           "--arrow-parens" "avoid"
                            ))
 
   ;; Golang

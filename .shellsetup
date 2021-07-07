@@ -33,7 +33,7 @@ eval "$(pyenv init -)" && pyenv rehash                  # Pyenv
 
 case "$(uname -s)" in
    Darwin)
-	export JAVA_HOME=$(/usr/libexec/java_home)      # Java for Android Studio
+	export JAVA_HOME=`/usr/libexec/java_home -v 1.8`     # Java for Android Studio
 	;;
    Linux)
 	eval "$(pyenv virtualenv-init -)"

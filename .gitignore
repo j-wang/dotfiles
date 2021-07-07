@@ -155,3 +155,6 @@ freeline_project_description.json
 
 # Node
 node_modules/
+
+# Remove spacemacs.env
+.spacemacs.env
