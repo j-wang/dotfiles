@@ -4,8 +4,7 @@ if [ "$EMACS" = "" ]; then export TERM=xterm-256color; fi
 if [[ "$0" == *"bash" ]]; then source ~/.git-completion.bash; fi     # non-POSIX, will fail on dash
 
 export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scripting access
-export EDITOR="/usr/local/bin/vim"                       # use vim for simple editing
-alias vim="/usr/local/bin/vim"                           # point to the right vim
+export EDITOR="$(which vim)"                             # use vim for simple editing
 
 # === PATH editing ===
 export PATH="/usr/local/bin:$PATH"                      # local binaries
@@ -27,13 +26,14 @@ export NVM_DIR="$HOME/.nvm"                             # NVM directory
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 # Environment manager initializations
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)" && pyenv rehash                  # Pyenv
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 case "$(uname -s)" in
    Darwin)
 	export JAVA_HOME=`/usr/libexec/java_home -v 1.8`     # Java for Android Studio
+	if [[ `uname -m` == 'arm64' ]]; then
+		eval $(/opt/homebrew/bin/brew shellenv)
+	fi
 	;;
    Linux)
 	eval "$(pyenv virtualenv-init -)"
@@ -44,8 +44,10 @@ esac
 . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 # Language-specific paths, require language-specific setups
-export PATH="$(pyenv root)/shims:$PATH"
 export PATH="$GOPATH/bin:$PATH"                         # add go binaries
+
+# Conda
+conda config --set auto_activate_base False
 
 # Install powerline fonts and Spacemacs if not available
 if [ ! -f "$HOME/.emacs.d/spacemacs.mk" ]; then
