@@ -1,7 +1,7 @@
 case `uname` in
   Darwin)
     # commands for OS X go here
-	function emacs()
+	function ec()
 	{
        	    # -c creates a new frame
   	    # -a= fires a new emacs server if none is running
