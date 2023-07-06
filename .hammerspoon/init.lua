@@ -29,12 +29,12 @@ releasedA = function() end
 k:bind({}, 'a', nil, pressedA, releasedA)
 
 -- Launch Alfred with HYPER+SHIFT+A
-k:bind({"shift"}, 'a', nil, function() launch('Alfred 3'); end)
+k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 
--- Launch Emacs with HYPER+e
-k:bind({}, 'e', nil, function() launch('Emacs'); end)
+-- Launch email (Superhuman) with HYPER+e
+k:bind({}, 'e', nil, function() launch('Superhuman'); end)
 
--- Launch Dash with HYPER+e
+-- Launch Dash with HYPER+d
 k:bind({}, 'd', nil, function() launch('Dash'); end)
 
 -- Launch iTerm with HYPER+t
@@ -46,20 +46,14 @@ k:bind({}, 'c', nil, function() launch('Google Chrome'); end)
 -- Launch Safari with HYPER+b
 k:bind({}, 'b', nil, function() launch('Safari'); end)
 
--- Launch Superhuman with HYPER+h
-k:bind({}, 'h', nil, function() launch('Superhuman'); end)
-
 -- Launch Slack with HYPER+s
 k:bind({}, 's', nil, function() launch('Slack'); end)
 
--- Launch iA Writer with HYPER+i
-k:bind({}, 'i', nil, function() launch('iA Writer'); end)
+-- Launch Ulysses with HYPER+u
+k:bind({}, 'u', nil, function() launch('Ulysses'); end)
 
 -- Launch Parallels with HYPER+p
 k:bind({}, 'p', nil, function() launch('Parallels Desktop'); end)
-
--- Launch Google Play Music Desktop Player with HYPER+m
-k:bind({}, 'm', nil, function() launch('Google Play Music Desktop Player'); end)
 
 -- HYPER+up: Act like hyper up
 ufun = function()
