@@ -20,7 +20,7 @@ case `uname` in
 esac
 
 lsd_or_ls () {
-    if command -v exa >/dev/null 2>&1; then
+    if command -v lsd >/dev/null 2>&1; then
         lsd $1
     else
         ls $1
