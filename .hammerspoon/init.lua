@@ -10,11 +10,6 @@ end
 -- Sequential keybindings, e.g. Hyper-a,f for Finder
 a = hs.hotkey.modal.new({}, "F16")
 apps = {
-  {'e', 'Emacs'},
-  {'f', 'Fantastical 2'},
-  {'s', 'Safari'},
-  {'n', 'Notational Velocity'},
-  {'t', 'iTerm'},
   {'p', 'System Preferences'},
   {'v', 'Preview'},
   {'c', 'Google Chrome'},
@@ -31,29 +26,32 @@ k:bind({}, 'a', nil, pressedA, releasedA)
 -- Launch Alfred with HYPER+SHIFT+A
 k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 
+-- Launch Finder with HYPER+f
+k:bind({}, 'f', nil, function() launch('Finder'); end)
+
 -- Launch email (Superhuman) with HYPER+e
 k:bind({}, 'e', nil, function() launch('Superhuman'); end)
 
--- Launch Dash with HYPER+d
-k:bind({}, 'd', nil, function() launch('Dash'); end)
+-- Launch Emacs with HYPER+SHIFT+E
+k:bind({"shift"}, 'e', nil, function() launch('Emacs'); end)
 
--- Launch iTerm with HYPER+t
-k:bind({}, 't', nil, function() launch('iTerm'); end)
-
--- Launch Chrome with HYPER+c
-k:bind({}, 'c', nil, function() launch('Google Chrome'); end)
-
--- Launch Safari with HYPER+b
+-- Launch browser (Safari) with HYPER+b
 k:bind({}, 'b', nil, function() launch('Safari'); end)
+
+-- Launch calendar (Fantastical 2) with HYPER+c
+k:bind({}, 'c', nil, function() launch('Fantastical 2'); end)
+
+-- Launch terminal (iTerm) with HYPER+t
+k:bind({}, 't', nil, function() launch('iTerm'); end)
 
 -- Launch Slack with HYPER+s
 k:bind({}, 's', nil, function() launch('Slack'); end)
 
--- Launch Ulysses with HYPER+u
-k:bind({}, 'u', nil, function() launch('Ulysses'); end)
+-- Launch Reminders with HYPER+r
+k:bind({}, 'r', nil, function() launch('Reminders'); end)
 
--- Launch Parallels with HYPER+p
-k:bind({}, 'p', nil, function() launch('Parallels Desktop'); end)
+-- Launch Ulysses with HYPER+u
+k:bind({}, 'u', nil, function() launch('UlyssesMac'); end)
 
 -- HYPER+up: Act like hyper up
 ufun = function()

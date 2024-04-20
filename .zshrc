@@ -40,9 +40,11 @@ source "$HOME/dotfiles/.shellsetup"                            # shared setup be
 
 # === git modules ===
 ZDIR="$HOME/dotfiles/.zsh"                                     # set the directory used for zsh files
-antibody bundle < "$ZDIR/bundles.zh" > "$HOME/.bundles.txt"    # antibody and place into .bundles.txt
+source "$HOME/.antidote/antidote.zsh"                          # source antidote
+antidote load "$ZDIR/bundles.zh"                               # use antidote now instead
 source "$HOME/.bundles.txt"                                    # source load all the bundles
 
 # === prompt, aliases, etc. ===
 source "$ZDIR/prompt.zh"                                       # my custom prompt
 source "$ZDIR/aliases.zh"                                      # my custom aliases
+
