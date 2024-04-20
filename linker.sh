@@ -2,6 +2,9 @@
 # Assumes dotfiles is in $HOME/dotfiles to use absolute paths
 # This is required because of how symbolic links work
 
+# Antidote
+git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
+
 # Bash dotfiles
 ln -s $HOME/dotfiles/.aliases $HOME/.aliases
 ln -s $HOME/dotfiles/.bash_profile $HOME/.bash_profile

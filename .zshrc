@@ -40,9 +40,26 @@ source "$HOME/dotfiles/.shellsetup"                            # shared setup be
 
 # === git modules ===
 ZDIR="$HOME/dotfiles/.zsh"                                     # set the directory used for zsh files
-antibody bundle < "$ZDIR/bundles.zh" > "$HOME/.bundles.txt"    # antibody and place into .bundles.txt
+source "$HOME/.antidote/antidote.zsh"                          # source antidote
+antidote load "$ZDIR/bundles.zh"                               # use antidote now instead
 source "$HOME/.bundles.txt"                                    # source load all the bundles
 
 # === prompt, aliases, etc. ===
 source "$ZDIR/prompt.zh"                                       # my custom prompt
 source "$ZDIR/aliases.zh"                                      # my custom aliases
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

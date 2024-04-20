@@ -19,16 +19,16 @@ case `uname` in
   ;;
 esac
 
-exa_or_ls () {
+lsd_or_ls () {
     if command -v exa >/dev/null 2>&1; then
-        exa $1
+        lsd $1
     else
         ls $1
     fi
 }
 
 # exa if available
-alias ls=exa_or_ls
+alias ls=lsd_or_ls
 
 # rstudio for issues with Java on Mac
 rstudio() {
