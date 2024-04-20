@@ -158,3 +158,6 @@ node_modules/
 
 # Remove spacemacs.env
 .spacemacs.env
+
+# ignore antidote bundles
+.zsh/bundles.zsh
