@@ -24,6 +24,9 @@ ln -s $HOME/dotfiles/.agignore $HOME/.agignore
 # zsh dotfiles
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
+# config dotfiles
+ln -s $HOME/dotfiles/.config/lsd $HOME/.config/lsd
+
 # todo.sh dotfiles
 # ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
 # taskwarrior dotfile
