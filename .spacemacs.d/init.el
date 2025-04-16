@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(windows-scripts
+     rust
      ruby
      swift
      docker
@@ -63,7 +64,7 @@ values."
      deft
      dash
      (typescript :variables
-                 typescript-backend 'lsp)
+                 typescript-backend 'ts-ls)
      lsp
      auto-completion
      (shell :variables
@@ -91,11 +92,7 @@ values."
      all-the-icons-dired
      doom-modeline
      doom-themes
-     (reason-mode
-      :location (recipe
-                 :repo "reasonml-editor/reason-mode"
-                 :fetcher github
-                 :files ("reason-mode.el" "refmt.el" "reason-indent.el" "reason-interaction.el")))
+     corfu
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -374,14 +371,14 @@ you should place your code here."
   (use-package all-the-icons
     :ensure t
     :config (let ((font-dest (cl-case window-system
-                              (x  (concat (or (getenv "XDG_DATA_HOME")
-                                              ;; Default Linux install directories
-                                   (concat (getenv "HOME") "/.local/share"))
-                               "/fonts/"))
-                   (mac (concat (getenv "HOME") "/Library/Fonts/" ))
-                   (ns (concat (getenv "HOME") "/Library/Fonts/" )))))
-  (unless (file-exists-p (concat font-dest "all-the-icons.ttf"))
-    (all-the-icons-install-fonts t))))
+                               (x  (concat (or (getenv "XDG_DATA_HOME")
+                                               ;; Default Linux install directories
+                                               (concat (getenv "HOME") "/.local/share"))
+                                           "/fonts/"))
+                               (mac (concat (getenv "HOME") "/Library/Fonts/" ))
+                               (ns (concat (getenv "HOME") "/Library/Fonts/" )))))
+              (unless (file-exists-p (concat font-dest "all-the-icons.ttf"))
+                (all-the-icons-install-fonts t))))
 
   ;; enable doom modeline
   ;; (use-package doom-modeline
@@ -518,8 +515,8 @@ you should place your code here."
     )
 
   ;; Make terminal prompts read-only
-  ;(setq comint-prompt-read-only t)
-  ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+                                        ;(setq comint-prompt-read-only t)
+                                        ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
   (when (require 'multi-term nil t)
     (global-set-key (kbd "<f5>") 'multi-term)
     (setq term-bind-key-alist
@@ -565,8 +562,8 @@ you should place your code here."
 
   (dolist (spec term-function-key-alist)
     (define-key term-raw-map
-      (read-kbd-macro (format "<%s>" (car spec)))
-      'term-send-function-key))
+                (read-kbd-macro (format "<%s>" (car spec)))
+                'term-send-function-key))
 
   ;; Snippets
   (setq auto-completion-private-snippetes-directory "~/.spacemacs.d/snippets")
@@ -580,18 +577,7 @@ you should place your code here."
   ;; Typescript for tsx
   (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-mode))
 
-  ;; setup tide
-  (defun setup-tide-mode ()
-    (interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    ;; company is an optional dependency. You have to
-    ;; install it separately via package-install
-    ;; `M-x package-install [ret] company`
-    (company-mode +1))
+  (add-hook 'typescript-mode-hook 'lsp-ui-mode)
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
@@ -599,7 +585,6 @@ you should place your code here."
   ;; formats the buffer before saving
   ;; (add-hook 'before-save-hook 'tide-format-before-save)
 
-  (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
   ;; Local eslint
   ;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
@@ -638,11 +623,11 @@ you should place your code here."
 
   ;; JSX tern support
   (add-hook 'rjsx-mode-hook (lambda ()
-                                 (tern-mode t)
-                                 (flycheck-mode)
-                                 (customize-set-variable 'j2-mode-hide-warnings-and-errors t)
-                                 (evil-define-key 'insert rjsx-mode-map "\C-d" #'evil-rjsx-electric)
-                                 ))
+                              (tern-mode t)
+                              (flycheck-mode)
+                              (customize-set-variable 'j2-mode-hide-warnings-and-errors t)
+                              (evil-define-key 'insert rjsx-mode-map "\C-d" #'evil-rjsx-electric)
+                              ))
 
   ;; (add-hook 'rjsx-mode-hook
   ;;           (lambda ()
@@ -661,7 +646,13 @@ you should place your code here."
 
   (require 'flycheck)
   ;; turn on flychecking globally
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (use-package flycheck
+    :ensure t
+    :init (global-flycheck-mode)
+    :bind (:map flycheck-mode-map
+                ("M-n" . flycheck-next-error) ; optional but recommended error navigation
+                ("M-p" . flycheck-previous-error)))
+
   ;; disable jshint since we prefer eslint checking
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
@@ -717,7 +708,7 @@ you should place your code here."
     :command ("flow" "--json" source-original)
     :error-parser flycheck-parse-flow
     :modes (react-mode js2-mode js2-jsx-mode web-mode rjsx-mode)
-;;    :next-checkers ((error . javascript-eslint))
+    ;;    :next-checkers ((error . javascript-eslint))
     )
   (add-to-list 'flycheck-checkers 'javascript-flow)
 
