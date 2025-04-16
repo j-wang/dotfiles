@@ -1,7 +1,7 @@
 [user]
 	name = James Wang
 	email = veriathon@gmail.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK8hCSi05jQsu0Fsg+GsN4rI9pB/WcEFFziV4GJHVqBG
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjq8ATQc3aBF02T+GUQNEGFxMMiSZXoT36d5wM949JN
 
 [color]
 	ui = auto
