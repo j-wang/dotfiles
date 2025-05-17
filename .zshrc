@@ -42,7 +42,6 @@ source "$HOME/dotfiles/.shellsetup"                            # shared setup be
 ZDIR="$HOME/dotfiles/.zsh"                                     # set the directory used for zsh files
 source "$HOME/.antidote/antidote.zsh"                          # source antidote
 antidote load "$ZDIR/bundles.zh"                               # use antidote now instead
-source "$HOME/.bundles.txt"                                    # source load all the bundles
 
 # === prompt, aliases, etc. ===
 source "$ZDIR/prompt.zh"                                       # my custom prompt
