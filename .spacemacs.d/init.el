@@ -73,6 +73,8 @@ values."
             shell-default-shell 'multi-term)
      latex
      bibtex
+     multiple-cursors
+     treemacs
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -93,11 +95,14 @@ values."
      doom-modeline
      doom-themes
      corfu
+     lsp-pyright
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    code-review
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -733,6 +738,12 @@ you should place your code here."
 
   ;; Python
   (setq python-indent-offset 4)  ;; 4 spaces for indent
+  (use-package lsp-pyright
+    :ensure t
+    :custom (lsp-pyright-langserver-command "basedpyright") ;; pyright or basedpyright
+    :hook (python-mode . (lambda ()
+                           (require 'lsp-pyright)
+                           (lsp))))  ; or lsp-deferred
 
   ;; Dumb Jump
   (dumb-jump-mode)
