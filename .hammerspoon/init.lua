@@ -30,16 +30,16 @@ k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 k:bind({}, 'f', nil, function() launch('Finder'); end)
 
 -- Launch email (Superhuman) with HYPER+e
-k:bind({}, 'e', nil, function() launch('Superhuman'); end)
+k:bind({"shift"}, 's', nil, function() launch('Superhuman'); end)
 
 -- Launch Emacs with HYPER+SHIFT+E
-k:bind({"shift"}, 'e', nil, function() launch('Emacs'); end)
+k:bind({}, 'e', nil, function() launch('Emacs'); end)
 
 -- Launch browser (Safari) with HYPER+b
 k:bind({}, 'b', nil, function() launch('Safari'); end)
 
 -- Launch calendar (Fantastical 2) with HYPER+c
-k:bind({}, 'c', nil, function() launch('Fantastical 2'); end)
+k:bind({}, 'c', nil, function() launch('Fantastical'); end)
 
 -- Launch terminal (iTerm) with HYPER+t
 k:bind({}, 't', nil, function() launch('iTerm'); end)
