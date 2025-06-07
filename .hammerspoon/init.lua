@@ -23,6 +23,9 @@ pressedA = function() a:enter() end
 releasedA = function() end
 k:bind({}, 'a', nil, pressedA, releasedA)
 
+-- Allow escape to exit the modal
+k:bind('', 'escape', function() k:exit() end)
+
 -- Launch Alfred with HYPER+SHIFT+A
 k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 
