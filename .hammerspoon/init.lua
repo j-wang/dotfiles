@@ -23,23 +23,29 @@ pressedA = function() a:enter() end
 releasedA = function() end
 k:bind({}, 'a', nil, pressedA, releasedA)
 
--- Launch Alfred with HYPER+SHIFT+A
+-- Allow escape to exit the modal
+k:bind('', 'escape', function() k:exit() end)
+
+-- Launch Alfred with HYPER+A
 k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 
 -- Launch Finder with HYPER+f
 k:bind({}, 'f', nil, function() launch('Finder'); end)
 
--- Launch email (Superhuman) with HYPER+e
-k:bind({}, 'e', nil, function() launch('Superhuman'); end)
+-- Launch email (Superhuman) with HYPER+S
+k:bind({"shift"}, 's', nil, function() launch('Superhuman'); end)
 
--- Launch Emacs with HYPER+SHIFT+E
-k:bind({"shift"}, 'e', nil, function() launch('Emacs'); end)
+-- Launch Emacs with HYPER+E
+k:bind({}, 'e', nil, function() launch('Emacs'); end)
 
 -- Launch browser (Safari) with HYPER+b
 k:bind({}, 'b', nil, function() launch('Safari'); end)
 
--- Launch calendar (Fantastical 2) with HYPER+c
-k:bind({}, 'c', nil, function() launch('Fantastical 2'); end)
+-- launch calendar (fantastical) with hyper+c
+k:bind({}, 'c', nil, function() launch('Fantastical'); end)
+
+-- launch calendar (fantastical) with hyper+c
+k:bind({"shift"}, 'c', nil, function() launch('Craft'); end)
 
 -- Launch terminal (iTerm) with HYPER+t
 k:bind({}, 't', nil, function() launch('iTerm'); end)
