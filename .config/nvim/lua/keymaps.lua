@@ -24,7 +24,7 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Back to the file explorer
 vim.keymap.set("n", "<leader>e", function()
-  require("oil").open()
+  require("oil").open_float()
 end, { desc = "Open Oil (file explorer)" })
 
 -- Show Neotree side tree

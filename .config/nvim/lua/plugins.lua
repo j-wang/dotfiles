@@ -55,7 +55,7 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
     },
     opts = {
-      ensure_installed = { "lua_ls", "pyright", "ts_ls", "gopls" }
+      ensure_installed = { "lua_ls", "pyright", "ts_ls", "gopls" },
     },
   },
   -- Trouble.nvim
@@ -191,3 +191,13 @@ require('telescope').setup({
   }
 })
 
+-- LSP configuration
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+	globals = { "vim" },
+      },
+    }
+  }
+})
