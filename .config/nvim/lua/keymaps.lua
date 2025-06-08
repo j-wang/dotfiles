@@ -27,6 +27,14 @@ vim.keymap.set("n", "<leader>e", function()
   require("oil").open()
 end, { desc = "Open Oil (file explorer)" })
 
+-- Show Neotree side tree
+vim.keymap.set("n", "<leader>n", "<cmd>Neotree toggle<CR>", 
+  { desc = "Toggle file tree" })
+
+-- Show diagnostic
+vim.keymap.set("n", "<leader>d",
+  vim.diagnostic.open_float, { desc = "Line diagnostics" })
+
 -- Open the quickfix window
 vim.keymap.set('n', '<leader>qq', function()
   vim.cmd('copen')

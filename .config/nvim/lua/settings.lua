@@ -2,6 +2,7 @@ vim.o.number = true
 vim.o.termguicolors = true
 vim.o.updatetime = 300
 vim.o.signcolumn = "yes"
+vim.o.mouse = "a"
 
 -- Enable absolute + relative numbers together
 vim.opt.number = true
@@ -21,3 +22,4 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     vim.opt.relativenumber = true
   end,
 })
+

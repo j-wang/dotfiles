@@ -9,6 +9,7 @@ vim.g.loaded_netrwPlugin = 1
 require("plugins")
 require("settings")
 require("keymaps")
+require("ui")
 
 -- Enter Telescope if no file is passed
 vim.api.nvim_create_autocmd("VimEnter", {
