@@ -1,13 +1,16 @@
 local builtin = require('telescope.builtin')
 
--- Set leader key to <space>
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Quick file navigation
+vim.keymap.set('n', '<leader>ff', function() 
+	require('telescope.builtin').find_files({ hidden = true }) end)
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>fo', require('telescope.builtin').oldfiles)
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
+-- Project Management (press c in a git directory to add)
+vim.keymap.set('n', '<leader>fp', function()
+  require('telescope').extensions.project.project()
+end, { desc = "Switch Project" })
 
 -- Window splits
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
@@ -20,7 +23,9 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Back to the file explorer
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "File Explorer (netrw)" })
+vim.keymap.set("n", "<leader>e", function()
+  require("oil").open()
+end, { desc = "Open Oil (file explorer)" })
 
 -- Open the quickfix window
 vim.keymap.set('n', '<leader>qq', function()
