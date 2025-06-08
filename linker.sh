@@ -25,7 +25,9 @@ ln -s $HOME/dotfiles/.agignore $HOME/.agignore
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # config dotfiles
+mkdir -p $HOME/.config
 ln -s $HOME/dotfiles/.config/lsd $HOME/.config/lsd
+ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
 
 # todo.sh dotfiles
 # ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
