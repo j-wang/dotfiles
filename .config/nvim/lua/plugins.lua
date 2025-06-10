@@ -152,6 +152,24 @@ require("lazy").setup({
       })
     end
   },
+  -- Copy / Paste Support
+  {
+    "ibhagwan/smartyank.nvim",
+    event = { "TextYankPost" },
+    opts = {
+      highlight = { enabled = true },
+      clipboard = {
+        enabled = true,
+        register = "+",      -- or "*" if you prefer
+        tmux = false,
+        osc52 = {
+          enabled = true,
+          ssh_only = false,
+          silent = false,
+        },
+      },
+    },
+  },
   "nvim-treesitter/nvim-treesitter",
   "hrsh7th/nvim-cmp",
   "neovim/nvim-lspconfig",
