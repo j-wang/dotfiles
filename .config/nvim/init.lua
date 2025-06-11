@@ -10,6 +10,7 @@ require("plugins")
 require("settings")
 require("keymaps")
 require("ui")
+require("indents")
 
 -- Block that has requirements for loaded packages
 require("lspconfig")

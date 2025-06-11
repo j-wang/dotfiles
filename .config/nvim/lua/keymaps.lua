@@ -40,6 +40,10 @@ vim.keymap.set('n', '<leader>qq', function()
   vim.cmd('copen')
 end, {})
 
+vim.keymap.set("n", "<leader>gb", function()
+  require("gitsigns").toggle_current_line_blame()
+end, { desc = "Toggle Git Blame" })
+
 -- Reload the nvim config
 vim.keymap.set("n", "<leader>R", function()
   for name,_ in pairs(package.loaded) do
