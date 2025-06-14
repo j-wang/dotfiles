@@ -29,6 +29,9 @@ k:bind('', 'escape', function() k:exit() end)
 -- Launch Alfred with HYPER+A
 k:bind({"shift"}, 'a', nil, function() launch('Alfred 5'); end)
 
+-- Launch Drafts with HYPER+d
+k:bind({}, 'd', nil, function() launch('Drafts'); end)
+
 -- Launch Finder with HYPER+f
 k:bind({}, 'f', nil, function() launch('Finder'); end)
 

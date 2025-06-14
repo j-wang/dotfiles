@@ -24,7 +24,7 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Back to the file explorer
 vim.keymap.set("n", "<leader>e", function()
-  require("oil").open()
+  require("oil").open_float()
 end, { desc = "Open Oil (file explorer)" })
 
 -- Show Neotree side tree
@@ -39,6 +39,10 @@ vim.keymap.set("n", "<leader>d",
 vim.keymap.set('n', '<leader>qq', function()
   vim.cmd('copen')
 end, {})
+
+vim.keymap.set("n", "<leader>gb", function()
+  require("gitsigns").toggle_current_line_blame()
+end, { desc = "Toggle Git Blame" })
 
 -- Reload the nvim config
 vim.keymap.set("n", "<leader>R", function()
