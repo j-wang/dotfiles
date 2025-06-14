@@ -28,6 +28,7 @@ ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 mkdir -p $HOME/.config/lsd
 mkdir -p $HOME/.config/git
 rm -rf "$HOME/.config/nvim"  # delete nvim if it already exists
+rm -f "$HOME/.config/git/allowed_signers"  # delete allowed_signers if it already exists
 ln -s $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
 ln -s $HOME/dotfiles/.config/git/allowed_signers $HOME/.config/git/allowed_signers
 ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
