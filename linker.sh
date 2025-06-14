@@ -25,14 +25,12 @@ ln -s $HOME/dotfiles/.agignore $HOME/.agignore
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # config dotfiles
-mkdir -p $HOME/.config
-ln -s $HOME/dotfiles/.config/lsd $HOME/.config/lsd
+mkdir -p $HOME/.config/lsd
+mkdir -p $HOME/.config/git
+rm -rf "$HOME/.config/nvim"  # delete nvim if it already exists
+ln -s $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
+ln -s $HOME/dotfiles/.config/git/allowed_signers $HOME/.config/git/allowed_signers
 ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
-
-# todo.sh dotfiles
-# ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
-# taskwarrior dotfile
-# ln -s $HOME/dotfiles/.taskrc $HOME/taskrc
 
 # hammerspoon dotfiles
 ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon
