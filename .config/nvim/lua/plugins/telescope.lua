@@ -16,6 +16,22 @@ return {
             "--column",
             "--smart-case",
             "--hidden",
+            "--glob", "!.git/*",   -- ignore everything in `.git/`
+          },
+          file_ignore_patterns = {
+            "node_modules",
+          },
+        },
+        pickers = {
+          live_grep = {
+            -- add these so live_grep will also search dotfiles but still respect .gitignore:
+            additional_args = function(opts)
+              return { 
+                "--hidden",
+                "--glob", "!.git/*",             -- ignore .git/
+                "--glob", "!**/node_modules/*",  -- ignore anything under node_modules
+              }
+            end,
           },
         },
         extensions = {
