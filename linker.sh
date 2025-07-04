@@ -33,6 +33,9 @@ ln -s $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
 ln -s $HOME/dotfiles/.config/git/allowed_signers $HOME/.config/git/allowed_signers
 ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
 
+# tmux conf
+ln -s $HOME/dotfiles/.tmux.conf $HOME/.tmux.conf
+
 # hammerspoon dotfiles
 ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon
 
