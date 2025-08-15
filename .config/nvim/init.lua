@@ -12,9 +12,6 @@ require("keymaps")
 require("ui")
 require("indents")
 
--- Block that has requirements for loaded packages
-require("lspconfig")
-
 -- Enter Telescope if no file is passed
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()

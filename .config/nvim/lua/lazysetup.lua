@@ -18,7 +18,6 @@ require("lazy").setup({
   { import = "plugins" },
   "nvim-treesitter/nvim-treesitter",
   "hrsh7th/nvim-cmp",
-  "neovim/nvim-lspconfig",
   "hrsh7th/cmp-nvim-lsp",
   "L3MON4D3/LuaSnip",
   "nvim-lualine/lualine.nvim",
