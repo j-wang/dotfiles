@@ -1,1 +1,0 @@
-/Users/jameswang/dotfiles/.spacemacs.d
