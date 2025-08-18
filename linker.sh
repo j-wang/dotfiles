@@ -41,6 +41,7 @@ ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon
 
 # emacs dotfiles
 ln -s $HOME/dotfiles/.spacemacs.d $HOME/.spacemacs.d
+rm -f $HOME/dotfiles/.spacemacs.d/.spacemacs.d  # delete the .spacemacs circular link if it exists
 
 # vim dotfiles
 ln -s $HOME/dotfiles/.vimrc $HOME/.vimrc

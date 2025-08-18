@@ -7,11 +7,11 @@ return {
     },
     cmd = "Neogit",
     keys = {
-      { "<leader>gg", "<cmd>Neogit<CR>", desc = "Open Neogit" },
-      { "<leader>gh", "<cmd>DiffviewFileHistory %<CR>", desc = "File history (current file)" },
-      { "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open Diff View" },
-      { "<leader>gD", "<cmd>DiffviewFileHistory<CR>", desc = "Repo history" },
-      { "<leader>gq", "<cmd>DiffviewClose<CR>", desc = "Close Diffview" },
+      { "<leader>gg", "<cmd>Neogit<CR>", desc = "(Git) Open Neogit" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<CR>", desc = "(Git) File history (current file)" },
+      { "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "(Git) Open Diff View" },
+      { "<leader>gD", "<cmd>DiffviewFileHistory<CR>", desc = "(Git) Repo history" },
+      { "<leader>gq", "<cmd>DiffviewClose<CR>", desc = "(Git) Close Diffview" },
     },
     config = function()
       require("neogit").setup({
