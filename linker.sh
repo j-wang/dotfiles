@@ -25,20 +25,23 @@ ln -s $HOME/dotfiles/.agignore $HOME/.agignore
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # config dotfiles
-mkdir -p $HOME/.config
-ln -s $HOME/dotfiles/.config/lsd $HOME/.config/lsd
+mkdir -p $HOME/.config/lsd
+mkdir -p $HOME/.config/git
+rm -rf "$HOME/.config/nvim"  # delete nvim if it already exists
+rm -f "$HOME/.config/git/allowed_signers"  # delete allowed_signers if it already exists
+ln -s $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
+ln -s $HOME/dotfiles/.config/git/allowed_signers $HOME/.config/git/allowed_signers
 ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
 
-# todo.sh dotfiles
-# ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
-# taskwarrior dotfile
-# ln -s $HOME/dotfiles/.taskrc $HOME/taskrc
+# tmux conf
+ln -s $HOME/dotfiles/.tmux.conf $HOME/.tmux.conf
 
 # hammerspoon dotfiles
 ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon
 
 # emacs dotfiles
 ln -s $HOME/dotfiles/.spacemacs.d $HOME/.spacemacs.d
+rm -f $HOME/dotfiles/.spacemacs.d/.spacemacs.d  # delete the .spacemacs circular link if it exists
 
 # vim dotfiles
 ln -s $HOME/dotfiles/.vimrc $HOME/.vimrc
