@@ -161,3 +161,6 @@ node_modules/
 
 # ignore antidote bundles
 .zsh/bundles.zsh
+
+# ignore cloned mac-dev-playbook in macossetup
+macossetup/mac-dev-playbook
