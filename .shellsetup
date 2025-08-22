@@ -48,9 +48,6 @@ esac
 # Language-specific paths, require language-specific setups
 export PATH="$GOPATH/bin:$PATH"                         # add go binaries
 
-# Conda
-conda config --set auto_activate_base False
-
 # Install powerline fonts and Spacemacs if not available
 if [ ! -f "$HOME/.emacs.d/spacemacs.mk" ]; then
     echo "Installing Spacemacs..."
