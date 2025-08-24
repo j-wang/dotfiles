@@ -42,6 +42,9 @@ case "$(uname -s)" in
 	;;
 esac
 
+# Source .env if it exists in our dotfiles
+[ -f "$HOME/dotfiles/.env" ] && . "$HOME/dotfiles/.env"
+
 # OPAM configuration
 . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
