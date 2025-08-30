@@ -38,7 +38,7 @@ case "$(uname -s)" in
 	fi
 	;;
    Linux)
-	eval "$(pyenv virtualenv-init -)"
+        :  # no-op, can be filled in later
 	;;
 esac
 
