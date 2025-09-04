@@ -4,8 +4,9 @@ if [ "$EMACS" = "" ]; then export TERM=xterm-256color; fi
 if [ -n "${BASH_VERSION-}" ]; then
   [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
 elif [ -n "${ZSH_VERSION-}" ]; then
-  autoload -Uz bashcompinit 2>/dev/null && bashcompinit
-  [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
+  autoload -Uz compinit && compinit
+  # Source the zsh-specific version instead
+  [ -r "$HOME/.git-completion.zsh" ] && . "$HOME/.git-completion.zsh"
 fi
 
 export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scripting access
