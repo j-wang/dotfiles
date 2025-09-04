@@ -67,10 +67,11 @@ safe_link "$DOT/.zshrc" "$HOME/.zshrc"
 replace_dir_with_link "$DOT/.config/lsd" "$HOME/.config/lsd"
 replace_dir_with_link "$DOT/.config/nvim" "$HOME/.config/nvim"
 
-# Write absolute path to git config (resolves $HOME to a literal path)
+# Set allowed_signers in git
 mkdir -p "$HOME/.config/git"
 if [ -f "$DOT/.config/git/allowed_signers" ]; then
   safe_link "$DOT/.config/git/allowed_signers" "$HOME/.config/git/allowed_signers"
+  git config --global gpg.ssh.program "$HOME/.local/bin/git-ssh-signer"
   git config --global gpg.ssh.allowedSignersFile "$HOME/.config/git/allowed_signers" || true
 fi
 
