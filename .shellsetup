@@ -1,7 +1,13 @@
 # Assumes compatibility with both bash and zh
 # === Editor and Notes Convenience Setups ===
 if [ "$EMACS" = "" ]; then export TERM=xterm-256color; fi
-if [[ "$0" == *"bash" ]]; then source ~/.git-completion.bash; fi     # non-POSIX, will fail on dash
+if [ -n "${BASH_VERSION-}" ]; then
+  [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
+elif [ -n "${ZSH_VERSION-}" ]; then
+  autoload -Uz compinit && compinit
+  # Source the zsh-specific version instead
+  [ -r "$HOME/.git-completion.zsh" ] && . "$HOME/.git-completion.zsh"
+fi
 
 export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scripting access
 export EDITOR="$(which vim)"                             # use vim for simple editing
@@ -10,6 +16,7 @@ export EDITOR="$(which vim)"                             # use vim for simple ed
 export PATH="/usr/local/bin:$PATH"                      # local binaries
 export PATH="/usr/local/yum:$PATH"                      # yum stuff, random things rely on it
 export PATH="/usr/local/share/npm/bin:$PATH"            # npm global
+export PATH="$HOME/.local/bin:$PATH"                    # other local binaries
 export PATH="$HOME/.npm-packages/bin:$PATH"             # npm explicit-set global
 export PATH="/usr/local/go/bin:$PATH"                   # add go to path
 export PATH="/usr/local/terraform/bin:$PATH"            # terraform directory

@@ -1,50 +1,95 @@
-#!/bin/bash
+#!/bin/sh
 # Assumes dotfiles is in $HOME/dotfiles to use absolute paths
 # This is required because of how symbolic links work
 
-# Antidote
-git clone --depth=1 https://github.com/mattmc3/antidote.git $HOME/.antidote
+set -eu
+
+log() { printf '%s\n' "$*" >&2; }
+
+# Safe symlink creator:
+# - ensures parent dir
+# - if dest exists and is NOT a symlink, skip
+# - otherwise, ln -snf src -> dest
+safe_link() {
+  src=$1
+  dest=$2
+  [ -e "$src" ] || { log "skip (missing src): $src"; return 0; }
+  mkdir -p "$(dirname "$dest")"
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    log "skip (exists, not a symlink): $dest"
+    return 0
+  fi
+  ln -snf "$src" "$dest"
+  log "link: $dest -> $src"
+}
+
+replace_dir_with_link() {
+  src=$1
+  dest=$2
+  [ -e "$src" ] || { log "skip (missing src): $src"; return 0; }
+  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
+    rm -rf "$dest"
+  fi
+  safe_link "$src" "$dest"
+}
+
+DOT="$HOME/dotfiles"
+
+# --- Antidote (idempotent vs. always-clone) ---
+if [ -d "$HOME/.antidote/.git" ]; then
+  log "antidote exists, pulling updates"
+  git -C "$HOME/.antidote" pull --ff-only || true
+else
+  log "cloning antidote"
+  git clone --depth=1 https://github.com/mattmc3/antidote.git "$HOME/.antidote"
+fi
 
 # Bash dotfiles
-ln -s $HOME/dotfiles/.aliases $HOME/.aliases
-ln -s $HOME/dotfiles/.bash_profile $HOME/.bash_profile
-ln -s $HOME/dotfiles/.bashrc $HOME/.bashrc
-ln -s $HOME/dotfiles/.inputrc $HOME/.inputrc
-ln -s $HOME/dotfiles/.profile $HOME/.profile
+safe_link "$DOT/.aliases" "$HOME/.aliases"
+safe_link "$DOT/.bash_profile" "$HOME/.bash_profile"
+safe_link "$DOT/.bashrc" "$HOME/.bashrc"
+safe_link "$DOT/.inputrc" "$HOME/.inputrc"
+safe_link "$DOT/.profile" "$HOME/.profile"
 
 # Git dotfiles
-ln -s $HOME/dotfiles/.git-completion.bash $HOME/.git-completion.bash
-ln -s $HOME/dotfiles/.gitconfig $HOME/.gitconfig
-ln -s $HOME/dotfiles/.gitignore $HOME/.gitignore
-ln -s $HOME/dotfiles/.gitmodules $HOME/.gitmodules
+safe_link "$DOT/.git-completion.bash" "$HOME/.git-completion.bash"
+safe_link "$DOT/.gitconfig" "$HOME/.gitconfig"
+safe_link "$DOT/.gitignore" "$HOME/.gitignore"
+safe_link "$DOT/.gitmodules" "$HOME/.gitmodules"
 
 # ag dotfiles
-ln -s $HOME/dotfiles/.agignore $HOME/.agignore
+safe_link "$DOT/.agignore" "$HOME/.agignore"
 
 # zsh dotfiles
-ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
+safe_link "$DOT/.zshrc" "$HOME/.zshrc"
 
-# config dotfiles
-mkdir -p $HOME/.config/lsd
-mkdir -p $HOME/.config/git
-rm -rf "$HOME/.config/nvim"  # delete nvim if it already exists
-rm -f "$HOME/.config/git/allowed_signers"  # delete allowed_signers if it already exists
-ln -s $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
-ln -s $HOME/dotfiles/.config/git/allowed_signers $HOME/.config/git/allowed_signers
-ln -s $HOME/dotfiles/.config/nvim $HOME/.config/nvim
+# .config dotfiles
+replace_dir_with_link "$DOT/.config/lsd" "$HOME/.config/lsd"
+replace_dir_with_link "$DOT/.config/nvim" "$HOME/.config/nvim"
+
+# Write absolute path to git config (resolves $HOME to a literal path)
+mkdir -p "$HOME/.config/git"
+if [ -f "$DOT/.config/git/allowed_signers" ]; then
+  safe_link "$DOT/.config/git/allowed_signers" "$HOME/.config/git/allowed_signers"
+  git config --global gpg.ssh.allowedSignersFile "$HOME/.config/git/allowed_signers" || true
+fi
+
+# Link git-ssh-signer to a place on PATH
+mkdir -p "$HOME/.local/bin"
+safe_link "$DOT/git-ssh-signer" "$HOME/.local/bin/git-ssh-signer"
 
 # tmux conf
-ln -s $HOME/dotfiles/.tmux.conf $HOME/.tmux.conf
+safe_link "$DOT/.tmux.conf" "$HOME/.tmux.conf"
 
 # hammerspoon dotfiles
-ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon
+replace_dir_with_link "$DOT/.hammerspoon" "$HOME/.hammerspoon"
 
-# emacs dotfiles
-ln -s $HOME/dotfiles/.spacemacs.d $HOME/.spacemacs.d
-rm -f $HOME/dotfiles/.spacemacs.d/.spacemacs.d  # delete the .spacemacs circular link if it exists
+# emacs dotfiles (circular link cleanup)
+replace_dir_with_link "$DOT/.spacemacs.d" "$HOME/.spacemacs.d"
+rm -f "$DOT/.spacemacs.d/.spacemacs.d" 2>/dev/null || true
 
 # vim dotfiles
-ln -s $HOME/dotfiles/.vimrc $HOME/.vimrc
+safe_link "$DOT/.vimrc" "$HOME/.vimrc"
 
 # misc
-ln -s $HOME/dotfiles/.eslintrc $HOME/.eslintrc
+safe_link "$DOT/.eslintrc" "$HOME/.eslintrc"
