@@ -52,7 +52,6 @@ safe_link "$DOT/.inputrc" "$HOME/.inputrc"
 safe_link "$DOT/.profile" "$HOME/.profile"
 
 # Git dotfiles
-safe_link "$DOT/.git-completion.bash" "$HOME/.git-completion.bash"
 safe_link "$DOT/.gitconfig" "$HOME/.gitconfig"
 safe_link "$DOT/.gitignore" "$HOME/.gitignore"
 

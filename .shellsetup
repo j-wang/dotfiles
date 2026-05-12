@@ -1,13 +1,6 @@
 # Assumes compatibility with both bash and zsh
 # === Editor and Notes Convenience Setups ===
 export TERM=xterm-256color
-if [ -n "${BASH_VERSION-}" ]; then
-  [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
-elif [ -n "${ZSH_VERSION-}" ]; then
-  autoload -Uz compinit && compinit
-  # Source the zsh-specific version instead
-  [ -r "$HOME/.git-completion.zsh" ] && . "$HOME/.git-completion.zsh"
-fi
 
 export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scripting access
 export EDITOR="$(which vim)"                             # use vim for simple editing
@@ -108,3 +101,24 @@ fi
 
 # Language-specific paths, require language-specific setups
 export PATH="$GOPATH/bin:$PATH"                         # add go binaries
+
+# === Shell completion (after PATH so completion scripts can find their helpers) ===
+_load_git_completion() {
+  _shell=$1  # "bash" or "zsh"
+  for _p in \
+    "/Library/Developer/CommandLineTools/usr/share/git-core/git-completion.$_shell" \
+    "/opt/homebrew/share/git-core/contrib/completion/git-completion.$_shell" \
+    "/usr/local/share/git-core/contrib/completion/git-completion.$_shell" \
+    "/usr/share/bash-completion/completions/git" \
+    "/etc/bash_completion.d/git-completion.$_shell"; do
+    if [ -r "$_p" ]; then . "$_p"; return 0; fi
+  done
+}
+
+if [ -n "${BASH_VERSION-}" ]; then
+  _load_git_completion bash
+elif [ -n "${ZSH_VERSION-}" ]; then
+  autoload -Uz compinit && compinit
+  _load_git_completion zsh
+fi
+unset -f _load_git_completion 2>/dev/null || true
