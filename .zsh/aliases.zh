@@ -6,7 +6,7 @@ lsd_or_ls () {
     fi
 }
 
-# exa if available
+# lsd if available, fall back to ls
 alias ls=lsd_or_ls
 
 # rstudio for issues with Java on Mac
@@ -17,4 +17,3 @@ rstudio() {
 
 # alias for reloading .zshrc easily
 alias sz='source $HOME/.zshrc'
-

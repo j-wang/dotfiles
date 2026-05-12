@@ -1,15 +1,15 @@
 alias aa='open ~/.aliases && . ~/.aliases'
 
-exa_or_ls () {
-    if command -v exa >/dev/null 2>&1; then
-        exa $1
+lsd_or_ls () {
+    if command -v lsd >/dev/null 2>&1; then
+        lsd $1
     else
         ls $1
     fi
 }
 
-# exa if available
-alias ls=exa_or_ls
+# lsd if available, fall back to ls
+alias ls=lsd_or_ls
 
 rstudio() {
     R CMD javareconf -e
