@@ -1,3 +1,6 @@
+-- Enable `hs` CLI for remote reloads
+require("hs.ipc")
+
 -- A global variable for the Hyper Mode
 k = hs.hotkey.modal.new({ "ctrl" }, "f")
 
@@ -28,9 +31,6 @@ k:bind({}, 'a', nil, pressedA, releasedA)
 -- Allow escape to exit the modal
 k:bind('', 'escape', function() k:exit() end)
 
--- Launch Alfred with HYPER+A
-k:bind({ "shift" }, 'a', nil, function() launch('Alfred 5'); end)
-
 -- Launch Drafts with HYPER+d
 k:bind({}, 'd', nil, function() launch('Drafts'); end)
 
@@ -40,14 +40,11 @@ k:bind({}, 'f', nil, function() launch('Finder'); end)
 -- Launch email with HYPER+E
 k:bind({}, 'e', nil, function() launch('Superhuman'); end)
 
--- Launch browser (Safari) with HYPER+b
-k:bind({}, 'b', nil, function() launch('Safari'); end)
+-- Launch browser (Chrome) with HYPER+b
+k:bind({}, 'b', nil, function() launch('Google Chrome'); end)
 
 -- launch calendar (fantastical) with hyper+c
 k:bind({}, 'c', nil, function() launch('Fantastical'); end)
-
--- launch ChatGPT with hyper+C
-k:bind({ "shift" }, 'c', nil, function() launch('ChatGPT'); end)
 
 -- Launch terminal (iTerm) with HYPER+t
 k:bind({}, 't', nil, function() launch('iTerm'); end)
@@ -131,24 +128,83 @@ local function setRectFull(win, rect) -- rect: normalized {x,y,w,h}
   return true
 end
 
--- === HYPER + 1: Superhuman left 50%, Drafts right 50% ===
+local function setAllAppWindowsRect(bundleID, name, rect)
+  local app = hs.application.get(bundleID)
+  if not app and name then app = hs.appfinder.appFromName(name) end
+  if not app then return end
+  for _, w in ipairs(app:allWindows()) do
+    if w:isStandard() and w:isVisible() and not w:isMinimized() then
+      setRectFull(w, rect)
+    end
+  end
+end
+
+-- === HYPER + 1: Chrome left 50%, Drafts right 50% ===
 k:bind({}, '1', nil, function()
-  -- Launch apps first (explicit fallbacks, no inline `or`)
-  if not hs.application.launchOrFocusByBundleID('com.superhuman.Superhuman') then
-    hs.application.launchOrFocus('Superhuman')
+  k.triggered = true
+  k:exit()
+
+  if not hs.application.launchOrFocusByBundleID('com.google.Chrome') then
+    hs.application.launchOrFocus('Google Chrome')
   end
   if not hs.application.launchOrFocusByBundleID('com.agiletortoise.Drafts-OSX') then
     hs.application.launchOrFocus('Drafts')
   end
 
   hs.timer.doAfter(0.15, function()
-    local shWin   = appWindow('com.superhuman.Superhuman', 'Superhuman')
-    local draftsW = appWindow('com.agiletortoise.Drafts-OSX', 'Drafts')
+    setAllAppWindowsRect('com.google.Chrome', 'Google Chrome', { x = 0.00, y = 0.00, w = 0.50, h = 1.00 })
+    setAllAppWindowsRect('com.agiletortoise.Drafts-OSX', 'Drafts', { x = 0.50, y = 0.00, w = 0.50, h = 1.00 })
+  end)
+end)
 
-    if shWin then setRectFull(shWin, { x = 0.00, y = 0.00, w = 0.50, h = 1.00 }) end
-    if draftsW then setRectFull(draftsW, { x = 0.50, y = 0.00, w = 0.50, h = 1.00 }) end
+-- === HYPER + 2: all iTerm windows on left 50%, all Chrome windows on right 50% ===
+k:bind({}, '2', nil, function()
+  k.triggered = true
+  k:exit()
 
-    k.triggered = true; k:exit()
+  if not hs.application.launchOrFocusByBundleID('com.googlecode.iterm2') then
+    hs.application.launchOrFocus('iTerm')
+  end
+  if not hs.application.launchOrFocusByBundleID('com.google.Chrome') then
+    hs.application.launchOrFocus('Google Chrome')
+  end
+
+  hs.timer.doAfter(0.15, function()
+    setAllAppWindowsRect('com.googlecode.iterm2', 'iTerm2', { x = 0.00, y = 0.00, w = 0.50, h = 1.00 })
+    setAllAppWindowsRect('com.google.Chrome', 'Google Chrome', { x = 0.50, y = 0.00, w = 0.50, h = 1.00 })
+    hs.application.launchOrFocusByBundleID('com.googlecode.iterm2')
+  end)
+end)
+
+-- === HYPER + 4: OmniFocus left 50%, Fantastical right 50% ===
+k:bind({}, '4', nil, function()
+  k.triggered = true
+  k:exit()
+
+  if not hs.application.launchOrFocusByBundleID('com.omnigroup.OmniFocus4') then
+    hs.application.launchOrFocus('OmniFocus')
+  end
+  if not hs.application.launchOrFocusByBundleID('com.flexibits.fantastical2.mac') then
+    hs.application.launchOrFocus('Fantastical')
+  end
+
+  hs.timer.doAfter(0.15, function()
+    setAllAppWindowsRect('com.omnigroup.OmniFocus4', 'OmniFocus', { x = 0.00, y = 0.00, w = 0.50, h = 1.00 })
+    setAllAppWindowsRect('com.flexibits.fantastical2.mac', 'Fantastical', { x = 0.50, y = 0.00, w = 0.50, h = 1.00 })
+  end)
+end)
+
+-- === HYPER + 3: full-size all DEVONthink windows ===
+k:bind({}, '3', nil, function()
+  k.triggered = true
+  k:exit()
+
+  if not hs.application.launchOrFocusByBundleID('com.devon-technologies.think') then
+    hs.application.launchOrFocus('DEVONthink')
+  end
+
+  hs.timer.doAfter(0.15, function()
+    setAllAppWindowsRect('com.devon-technologies.think', 'DEVONthink', { x = 0.00, y = 0.00, w = 1.00, h = 1.00 })
   end)
 end)
 
@@ -168,20 +224,51 @@ k:bind({}, '0', nil, function()
   end)
 end)
 
--- Enter Hyper Mode when F18 (Hyper/Capslock) is pressed
--- pressedF18 = function()
---   k.triggered = false
---   k:enter()
--- end
+-- alt-` cycles windows of the frontmost app (cmd-` doesn't pass through Jump Desktop,
+-- and synthesizing cmd-` doesn't reliably trigger WindowServer's global shortcut).
+local phantomGraveArmed = false
 
--- Leave Hyper Mode when F18 (Hyper/Capslock) is pressed,
---   send ESCAPE if no other keys are pressed.
--- releasedF18 = function()
---   k:exit()
---   if not k.triggered then
---     hs.eventtap.keyStroke({}, 'ESCAPE')
---   end
--- end
+hs.hotkey.bind({ "alt" }, "`", function()
+  phantomGraveArmed = true
 
--- Bind the Hyper key
--- f18 = hs.hotkey.bind({}, 'F18', pressedF18, releasedF18)
+  local focused = hs.window.focusedWindow()
+  if not focused then return end
+  local app = focused:application()
+  if not app then return end
+
+  local windows = {}
+  for _, w in ipairs(app:allWindows()) do
+    if w:isStandard() and w:isVisible() and not w:isMinimized() then
+      windows[#windows + 1] = w
+    end
+  end
+  if #windows < 2 then return end
+
+  table.sort(windows, function(a, b) return a:id() < b:id() end)
+
+  local idx = 1
+  for i, w in ipairs(windows) do
+    if w:id() == focused:id() then
+      idx = i; break
+    end
+  end
+  windows[(idx % #windows) + 1]:focus()
+end)
+
+-- Jump Desktop replays the consumed ` as a plain keystroke arbitrarily later (held
+-- until the next user keystroke arrives). When armed, eat the next un-modified `;
+-- disarm on any other plain keystroke (the phantom would've flushed before it).
+phantomGraveEater = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
+  if not phantomGraveArmed then return false end
+  local f = e:getFlags()
+  if f.cmd or f.alt or f.ctrl or f.fn then return false end -- ignore real chords
+  if hs.keycodes.map[e:getKeyCode()] == "`" then
+    phantomGraveArmed = false
+    return true -- swallow phantom
+  end
+  phantomGraveArmed = false
+  return false
+end)
+phantomGraveEater:start()
+
+require("rcmd")
