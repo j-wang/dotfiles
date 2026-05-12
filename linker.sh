@@ -62,6 +62,7 @@ safe_link "$DOT/.agignore" "$HOME/.agignore"
 safe_link "$DOT/.zshrc" "$HOME/.zshrc"
 
 # .config dotfiles
+replace_dir_with_link "$DOT/.config/ghostty" "$HOME/.config/ghostty"
 replace_dir_with_link "$DOT/.config/lsd" "$HOME/.config/lsd"
 replace_dir_with_link "$DOT/.config/nvim" "$HOME/.config/nvim"
 
