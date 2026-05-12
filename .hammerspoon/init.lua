@@ -46,8 +46,8 @@ k:bind({}, 'b', nil, function() launch('Google Chrome'); end)
 -- launch calendar (fantastical) with hyper+c
 k:bind({}, 'c', nil, function() launch('Fantastical'); end)
 
--- Launch terminal (iTerm) with HYPER+t
-k:bind({}, 't', nil, function() launch('iTerm'); end)
+-- Launch terminal (Ghostty) with HYPER+t
+k:bind({}, 't', nil, function() launch('Ghostty'); end)
 
 -- Launch Slack with HYPER+s
 k:bind({}, 's', nil, function() launch('Slack'); end)
@@ -157,22 +157,22 @@ k:bind({}, '1', nil, function()
   end)
 end)
 
--- === HYPER + 2: all iTerm windows on left 50%, all Chrome windows on right 50% ===
+-- === HYPER + 2: all Ghostty windows on left 50%, all Chrome windows on right 50% ===
 k:bind({}, '2', nil, function()
   k.triggered = true
   k:exit()
 
-  if not hs.application.launchOrFocusByBundleID('com.googlecode.iterm2') then
-    hs.application.launchOrFocus('iTerm')
+  if not hs.application.launchOrFocusByBundleID('com.mitchellh.ghostty') then
+    hs.application.launchOrFocus('Ghostty')
   end
   if not hs.application.launchOrFocusByBundleID('com.google.Chrome') then
     hs.application.launchOrFocus('Google Chrome')
   end
 
   hs.timer.doAfter(0.15, function()
-    setAllAppWindowsRect('com.googlecode.iterm2', 'iTerm2', { x = 0.00, y = 0.00, w = 0.50, h = 1.00 })
+    setAllAppWindowsRect('com.mitchellh.ghostty', 'Ghostty', { x = 0.00, y = 0.00, w = 0.50, h = 1.00 })
     setAllAppWindowsRect('com.google.Chrome', 'Google Chrome', { x = 0.50, y = 0.00, w = 0.50, h = 1.00 })
-    hs.application.launchOrFocusByBundleID('com.googlecode.iterm2')
+    hs.application.launchOrFocusByBundleID('com.mitchellh.ghostty')
   end)
 end)
 
