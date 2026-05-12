@@ -1,6 +1,6 @@
-# Assumes compatibility with both bash and zh
+# Assumes compatibility with both bash and zsh
 # === Editor and Notes Convenience Setups ===
-if [ "$EMACS" = "" ]; then export TERM=xterm-256color; fi
+export TERM=xterm-256color
 if [ -n "${BASH_VERSION-}" ]; then
   [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
 elif [ -n "${ZSH_VERSION-}" ]; then
@@ -108,13 +108,3 @@ fi
 
 # Language-specific paths, require language-specific setups
 export PATH="$GOPATH/bin:$PATH"                         # add go binaries
-
-# Install powerline fonts and Spacemacs if not available
-if [ ! -f "$HOME/.emacs.d/spacemacs.mk" ]; then
-    echo "Installing Spacemacs..."
-    rm -rf $HOME/.emacs.d
-    git clone https://github.com/powerline/fonts.git --depth=1 $HOME/fonts && \
-        $HOME/fonts/install.sh && \
-        rm -rf $HOME/fonts
-    git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
-fi

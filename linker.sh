@@ -55,7 +55,6 @@ safe_link "$DOT/.profile" "$HOME/.profile"
 safe_link "$DOT/.git-completion.bash" "$HOME/.git-completion.bash"
 safe_link "$DOT/.gitconfig" "$HOME/.gitconfig"
 safe_link "$DOT/.gitignore" "$HOME/.gitignore"
-safe_link "$DOT/.gitmodules" "$HOME/.gitmodules"
 
 # ag dotfiles
 safe_link "$DOT/.agignore" "$HOME/.agignore"
@@ -84,10 +83,6 @@ safe_link "$DOT/.tmux.conf" "$HOME/.tmux.conf"
 
 # hammerspoon dotfiles
 replace_dir_with_link "$DOT/.hammerspoon" "$HOME/.hammerspoon"
-
-# emacs dotfiles (circular link cleanup)
-replace_dir_with_link "$DOT/.spacemacs.d" "$HOME/.spacemacs.d"
-rm -f "$DOT/.spacemacs.d/.spacemacs.d" 2>/dev/null || true
 
 # vim dotfiles
 safe_link "$DOT/.vimrc" "$HOME/.vimrc"

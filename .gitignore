@@ -156,9 +156,6 @@ freeline_project_description.json
 # Node
 node_modules/
 
-# Remove spacemacs.env
-.spacemacs.env
-
 # ignore antidote bundles
 .zsh/bundles.zsh
 

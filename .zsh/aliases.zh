@@ -1,24 +1,3 @@
-case `uname` in
-  Darwin)
-    # commands for OS X go here
-	function ec()
-	{
-       	    # -c creates a new frame
-  	    # -a= fires a new emacs server if none is running
-  	    emacsclient -c -a= $*
-	}	
-  ;;
-  Linux)
-    # commands for Linux go here
-	ec () {
-   	 $(emacsclient "$1"&)
-	}
-  ;;
-  FreeBSD)
-    # commands for FreeBSD go here
-  ;;
-esac
-
 lsd_or_ls () {
     if command -v lsd >/dev/null 2>&1; then
         lsd $1
