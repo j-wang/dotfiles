@@ -164,3 +164,6 @@ macossetup/mac-dev-playbook
 
 # ignore env secrets
 .env
+
+# per-machine zsh overlay
+.zshrc.local

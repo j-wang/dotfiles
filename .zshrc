@@ -47,3 +47,5 @@ antidote load "$ZDIR/bundles.zh"                               # use antidote no
 source "$ZDIR/prompt.zh"                                       # my custom prompt
 source "$ZDIR/aliases.zh"                                      # my custom aliases
 
+# === per-machine overlay (gitignored) ===
+[ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
