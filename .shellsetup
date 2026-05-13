@@ -11,6 +11,7 @@ export PATH="/usr/local/yum:$PATH"                      # yum stuff, random thin
 export PATH="/usr/local/share/npm/bin:$PATH"            # npm global
 export PATH="$HOME/.local/bin:$PATH"                    # other local binaries
 export PATH="$HOME/.npm-packages/bin:$PATH"             # npm explicit-set global
+export PATH="$HOME/.npm-global/bin:$PATH"               # npm global prefix (linux)
 export PATH="/usr/local/go/bin:$PATH"                   # add go to path
 export PATH="/usr/local/terraform/bin:$PATH"            # terraform directory
 export PATH="$HOME/.cargo/bin:$PATH"                    # rust cargo directory
