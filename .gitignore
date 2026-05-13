@@ -36,7 +36,8 @@ nosetests.xml
 .pydevproject
 
 # Mac stuff
-.ds_store
+.DS_Store
+**/.DS_Store
 
 # Emacs stuff
 *.py~
@@ -156,9 +157,6 @@ freeline_project_description.json
 # Node
 node_modules/
 
-# Remove spacemacs.env
-.spacemacs.env
-
 # ignore antidote bundles
 .zsh/bundles.zsh
 
@@ -167,3 +165,9 @@ macossetup/mac-dev-playbook
 
 # ignore env secrets
 .env
+
+# rcmd hammerspoon helper (contains an auth token; keep local-only)
+.hammerspoon/rcmd.lua
+
+# per-machine zsh overlay
+.zshrc.local

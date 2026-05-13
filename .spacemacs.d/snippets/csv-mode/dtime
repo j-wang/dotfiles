@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-#key : dtime
-#name : dtime
-#contributor : James Wang <james@j-wang.net>
-# --
-`(format-time-string "<%Y-%m-%d %a %I:%M%p>" (current-time))`

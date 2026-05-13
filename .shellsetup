@@ -1,13 +1,6 @@
-# Assumes compatibility with both bash and zh
+# Assumes compatibility with both bash and zsh
 # === Editor and Notes Convenience Setups ===
-if [ "$EMACS" = "" ]; then export TERM=xterm-256color; fi
-if [ -n "${BASH_VERSION-}" ]; then
-  [ -r "$HOME/.git-completion.bash" ] && . "$HOME/.git-completion.bash"
-elif [ -n "${ZSH_VERSION-}" ]; then
-  autoload -Uz compinit && compinit
-  # Source the zsh-specific version instead
-  [ -r "$HOME/.git-completion.zsh" ] && . "$HOME/.git-completion.zsh"
-fi
+export TERM=xterm-256color
 
 export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scripting access
 export EDITOR="$(which vim)"                             # use vim for simple editing
@@ -18,6 +11,7 @@ export PATH="/usr/local/yum:$PATH"                      # yum stuff, random thin
 export PATH="/usr/local/share/npm/bin:$PATH"            # npm global
 export PATH="$HOME/.local/bin:$PATH"                    # other local binaries
 export PATH="$HOME/.npm-packages/bin:$PATH"             # npm explicit-set global
+export PATH="$HOME/.npm-global/bin:$PATH"               # npm global prefix (linux)
 export PATH="/usr/local/go/bin:$PATH"                   # add go to path
 export PATH="/usr/local/terraform/bin:$PATH"            # terraform directory
 export PATH="$HOME/.cargo/bin:$PATH"                    # rust cargo directory
@@ -109,12 +103,17 @@ fi
 # Language-specific paths, require language-specific setups
 export PATH="$GOPATH/bin:$PATH"                         # add go binaries
 
-# Install powerline fonts and Spacemacs if not available
-if [ ! -f "$HOME/.emacs.d/spacemacs.mk" ]; then
-    echo "Installing Spacemacs..."
-    rm -rf $HOME/.emacs.d
-    git clone https://github.com/powerline/fonts.git --depth=1 $HOME/fonts && \
-        $HOME/fonts/install.sh && \
-        rm -rf $HOME/fonts
-    git clone https://github.com/syl20bnr/spacemacs $HOME/.emacs.d
+# === Shell completion ===
+# zsh: bundled `_git` from $fpath is autoloaded by compinit.
+# bash: source bash-completion if installed (lazy-loads git and many others).
+#       Install via `brew install bash-completion@2` or your distro's package.
+if [ -n "${BASH_VERSION-}" ]; then
+  for _bc in \
+    "${HOMEBREW_PREFIX:-/opt/homebrew}/etc/profile.d/bash_completion.sh" \
+    "/usr/share/bash-completion/bash_completion"; do
+    [ -r "$_bc" ] && . "$_bc" && break
+  done
+  unset _bc
+elif [ -n "${ZSH_VERSION-}" ]; then
+  autoload -Uz compinit && compinit
 fi

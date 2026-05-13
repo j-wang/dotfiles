@@ -1,0 +1,55 @@
+# Ghostty config — mirrors the iTerm2 "Default" profile in iterm2profile/.
+# Reference: https://ghostty.org/docs/config
+
+# === Font ===
+font-family = MesloLGL Nerd Font
+font-family-bold = MesloLGL Nerd Font
+font-size = 13
+font-feature = -calt
+font-feature = -liga
+
+# === Colors (dark theme cloned from iTerm2) ===
+background = #222630
+foreground = #cfd5e3
+cursor-color = #cfd5e3
+cursor-text = #2c3240
+selection-background = #3b4356
+selection-foreground = #cfd5e3
+
+palette = 0=#2c3240
+palette = 1=#af4b57
+palette = 2=#92b279
+palette = 3=#e5c078
+palette = 4=#6e8fb3
+palette = 5=#a3799d
+palette = 6=#76b3c5
+palette = 7=#dee3ec
+palette = 8=#3b4356
+palette = 9=#af4b57
+palette = 10=#92b279
+palette = 11=#e5c078
+palette = 12=#6e8fb3
+palette = 13=#a3799d
+palette = 14=#7daeac
+palette = 15=#e7eaf1
+
+# === Window appearance ===
+background-opacity = 0.83
+background-blur-radius = 20
+window-padding-x = 25
+window-padding-y = 25
+window-padding-balance = true
+window-decoration = true
+macos-titlebar-style = transparent
+mouse-hide-while-typing = true
+
+# === Behavior ===
+confirm-close-surface = true
+quit-after-last-window-closed = false
+copy-on-select = false
+word-char-exceptions = /-+\\~_.
+
+# === Shell ===
+# Inherit $SHELL by default; uncomment to pin:
+# command = /opt/homebrew/bin/zsh
+shell-integration = detect
