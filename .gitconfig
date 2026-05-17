@@ -24,8 +24,9 @@
 [commit]
 	gpgsign = true
 
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
-
+# Machine-specific paths (signingkey, allowedSignersFile, gpg.ssh.program)
+# belong in ~/.gitconfig.local, NOT here. If signing breaks on a new
+# machine, create .gitconfig.local with the local paths — do NOT add
+# absolute paths back into this tracked file. See commit e47f06c.
 [include]
 	path = .gitconfig.local
